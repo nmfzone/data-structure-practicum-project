@@ -10,7 +10,7 @@ class Kalkulator {
 	private Stack hitung;
 	private Stack tempOperand;
 	private Stack tempOperator;
-	private String[] operator = {"^", "%", "*", "/", "+", "-"};
+	private String[] operators = {"^", "%", "*", "/", "+", "-"};
 	private int[] priority = {5, 4, 3, 2, 1, 0};
 	private String[] variables = {"a", "b", "x", "y"};
 
@@ -40,7 +40,7 @@ class Kalkulator {
 
 			for (int j = 0;j < 6;j++)
 			{
-				if (test.equals(operator[j]))
+				if (test.equals(operators[j]))
 				{
 					isOperator = true;
 					break;
@@ -114,7 +114,7 @@ class Kalkulator {
 			// Make from Infix to Postfix
 			for (int i = 0; i < 6; i++)
 			{
-				if (pop.equals(operator[i]))
+				if (pop.equals(operators[i]))
 				{
 					if (tempOperator.isEmpty())
 					{
@@ -127,7 +127,7 @@ class Kalkulator {
 
 						for (int j = 0;j < 6;j++)
 						{
-							if (tempOperator.peek().getInfo().getIsi().equals(operator[j]))
+							if (tempOperator.peek().getInfo().getIsi().equals(operators[j]))
 							{
 								opPeek = priority[j];
 								break;
@@ -153,7 +153,7 @@ class Kalkulator {
 									{
 										for (int j = 0;j < 6;j++)
 										{
-											if (tempOperator.peek().getInfo().getIsi().equals(operator[j]))
+											if (tempOperator.peek().getInfo().getIsi().equals(operators[j]))
 											{
 												opPeek = priority[j];
 												break;
@@ -224,8 +224,8 @@ class Kalkulator {
 	{
 		Scanner io = new Scanner(System.in);
 		Element helper = rumus.deQueue();
-		String foundVar = "", varIn = "";
-		int[] foundVarIndex = new int[100];
+		String varIn = "";
+		String[] foundVar = new String[100];
 		for (int i = 0;i < helper.getInfo().getIsi().length();i++)
 		{
 			String isi = String.valueOf(helper.getInfo().getIsi().charAt(i));
@@ -244,14 +244,15 @@ class Kalkulator {
 						System.out.print("Masukkan Value " + variables[j] + " : ");
 						varIn = io.next();
 						boolean beforeIsOp = false;
-						foundVar = isi;
+						int idx = operator;
+						foundVar[j] = isi;
 						isi = varIn;
 
 						// Check if before variable is not operator
 						// then add * before it
 						for (int k = 0;k < operator.length;k++)
 						{
-							if (variables[(j-1)].equals(operator[k]))
+							if (variables[(j-1)].equals(operators[k]))
 							{
 								beforeIsOp = true;
 							}
