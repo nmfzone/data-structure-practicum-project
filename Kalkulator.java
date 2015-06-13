@@ -10,7 +10,7 @@ class Kalkulator {
 	private Stack hitung;
 	private Stack tempOperand;
 	private Stack tempOperator;
-	private String[] operators = {"^", "%", "*", "/", "+", "-"};
+	private String[] operator = {"^", "%", "*", "/", "+", "-"};
 	private int[] priority = {5, 4, 3, 2, 1, 0};
 	private String[] variables = {"a", "b", "x", "y"};
 
@@ -38,9 +38,9 @@ class Kalkulator {
 			isOperator = false;
 			String test = parts[i];
 
-			for (int j = 0;j < 6;j++)
+            for (int j = 0;j < 6;j++)
 			{
-				if (test.equals(operators[j]))
+				if (test.equals(operator[j]))
 				{
 					isOperator = true;
 					break;
@@ -114,7 +114,7 @@ class Kalkulator {
 			// Make from Infix to Postfix
 			for (int i = 0; i < 6; i++)
 			{
-				if (pop.equals(operators[i]))
+				if (pop.equals(operator[i]))
 				{
 					if (tempOperator.isEmpty())
 					{
@@ -127,7 +127,7 @@ class Kalkulator {
 
 						for (int j = 0;j < 6;j++)
 						{
-							if (tempOperator.peek().getInfo().getIsi().equals(operators[j]))
+							if (tempOperator.peek().getInfo().getIsi().equals(operator[j]))
 							{
 								opPeek = priority[j];
 								break;
@@ -153,7 +153,7 @@ class Kalkulator {
 									{
 										for (int j = 0;j < 6;j++)
 										{
-											if (tempOperator.peek().getInfo().getIsi().equals(operators[j]))
+											if (tempOperator.peek().getInfo().getIsi().equals(operator[j]))
 											{
 												opPeek = priority[j];
 												break;
@@ -224,47 +224,36 @@ class Kalkulator {
 	{
 		Scanner io = new Scanner(System.in);
 		Element helper = rumus.deQueue();
-		String varIn = "";
-		String[] foundVar = new String[100];
 		for (int i = 0;i < helper.getInfo().getIsi().length();i++)
 		{
 			String isi = String.valueOf(helper.getInfo().getIsi().charAt(i));
 
-			if (isi.equals(foundVar))
+			// Replace with number from input if found Variables
+			for (int j = 0;j < variables.length;j++)
 			{
-				isi = varIn;
-			}
-			else
-			{
-				// Replace with number from input if found Variables
-				for (int j = 0;j < variables.length;j++)
+				if (isi.toLowerCase().equals(variables[j]))
 				{
-					if (isi.toLowerCase().equals(variables[j]))
+					System.out.print("Masukkan Value " + variables[j] + " : ");
+					String varIn = io.next();
+					boolean beforeIsOp = false;
+					isi = varIn;
+
+					// Check if before variable is not operator
+					// then add * before it
+					for (int k = 0;k < operator.length;k++)
 					{
-						System.out.print("Masukkan Value " + variables[j] + " : ");
-						varIn = io.next();
-						boolean beforeIsOp = false;
-						int idx = operator;
-						foundVar[j] = isi;
-						isi = varIn;
-
-						// Check if before variable is not operator
-						// then add * before it
-						for (int k = 0;k < operator.length;k++)
+						if (variables[(j-1)].equals(operator[k]))
 						{
-							if (variables[(j-1)].equals(operators[k]))
-							{
-								beforeIsOp = true;
-							}
+							beforeIsOp = true;
 						}
-
-						if (!beforeIsOp)
-						{
-							splitRumus.enQueue(new Element(new Info("*")));
-						}
-
-						break;
 					}
+
+					if (!beforeIsOp)
+					{
+						splitRumus.enQueue(new Element(new Info("*")));
+					}
+
+					break;
 				}
 			}
 			splitRumus.enQueue(new Element(new Info(isi)));
