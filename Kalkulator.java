@@ -38,7 +38,7 @@ class Kalkulator {
 			isOperator = false;
 			String test = parts[i];
 
-            for (int j = 0;j < 6;j++)
+			for (int j = 0;j < 6;j++)
 			{
 				if (test.equals(operator[j]))
 				{
