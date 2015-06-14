@@ -224,9 +224,11 @@ class Kalkulator {
 	{
 		Scanner io = new Scanner(System.in);
 		Element helper = rumus.deQueue();
+		boolean beforeIsOp, afterIsOp;
+		String isi, varIn;
 		for (int i = 0;i < helper.getInfo().getIsi().length();i++)
 		{
-			String isi = String.valueOf(helper.getInfo().getIsi().charAt(i));
+			isi = String.valueOf(helper.getInfo().getIsi().charAt(i));
 
 			// Replace with number from input if found Variables
 			for (int j = 0;j < variables.length;j++)
@@ -234,12 +236,13 @@ class Kalkulator {
 				if (isi.toLowerCase().equals(variables[j]))
 				{
 					System.out.print("Masukkan Value " + variables[j] + " : ");
-					String varIn = io.next();
-					boolean beforeIsOp = false;
+					varIn = io.next();
+					beforeIsOp = false;
+					afterIsOp = false;
 					isi = varIn;
 
 					// Check if before variable is not operator
-					// then add * before it
+					// then add * before the variable
 					for (int k = 0;k < operator.length;k++)
 					{
 						if (variables[(j-1)].equals(operator[k]))
@@ -248,6 +251,16 @@ class Kalkulator {
 						}
 					}
 
+					// Check if after variable is not operator
+					for (int k = 0;k < operator.length;k++)
+					{
+						if (variables[(j+1)].equals(operator[k]))
+						{
+							afterIsOp = true;
+						}
+					}
+
+					// If before variable is not operator add * before the variable
 					if (!beforeIsOp)
 					{
 						splitRumus.enQueue(new Element(new Info("*")));
@@ -257,6 +270,12 @@ class Kalkulator {
 				}
 			}
 			splitRumus.enQueue(new Element(new Info(isi)));
+
+			// If after variable is not operator add * after the variable
+			if (!afterIsOp)
+			{
+				splitRumus.enQueue(new Element(new Info("*")));
+			}
 		}
 	}
 
