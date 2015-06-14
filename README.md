@@ -4,22 +4,25 @@ This is my "Struktur Data" Practicum Project for "Responsi" using JAVA in Islami
 
 # About The Program
 ```
-The program is for calculate the formula that have been inputed by user. The program can calculate the formula that have variables or not. The program calculate the formula by
-using LinkedList, Queue, and Stack, the basic algorithm to calculate the formula.
+The program is for calculate the formula that have been inputed by user.
+The program can calculate the formula that have variables or not. The program
+calculate the formula by using LinkedList, Queue, and Stack, the basic algorithm
+to calculate the formula.
 ```
 
 # Features
 ```
 	1. 	Calculate the formula that have a variables or not
-	
-	2. 	Can calculate the formula that have variables a, b, x and y. You can easily add
-		or remove the variables that can be used by edit this line in Kalkulator.java :
+
+	2. 	Can calculate the formula that have variables a, b, x and y. You can easily
+		add or remove the variables that can be used by edit this line in
+		Kalkulator.java :
 
 			private String[] variables = {"a", "b", "x", "y"};
 
-	3. 	Can calculate the formula that have operator ^(pow), %(modulo), *(multiply), /(div),
-		+(plus) and -(minus). You can easily add or remove the variables that can be used
-		by edit this line in Kalkulator.java :
+	3. 	Can calculate the formula that have operator ^(pow), %(modulo), *(multiply),
+		/(div), +(plus) and -(minus). You can easily add or remove the variables that
+		can be used by edit this line in Kalkulator.java :
 
 			private String[] operator = {"^", "%", "*", "/", "+", "-"};
 
@@ -27,7 +30,8 @@ using LinkedList, Queue, and Stack, the basic algorithm to calculate the formula
 
 			private int[] priority = {5, 4, 3, 2, 1, 0};
 
-		and the you must also add the operation in this section (please beware about this) :
+		and the you must also add the operation in this section :
+		(please beware about this)
 
 			switch (test)
 				{
