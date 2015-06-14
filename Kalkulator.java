@@ -31,7 +31,7 @@ class Kalkulator {
 
 		this.makePostFix();
 
-		System.out.println(postFix); //testCase
+		// System.out.println(postFix); //testCase
 
 		String[] parts = postFix.split(",");
 
@@ -106,7 +106,7 @@ class Kalkulator {
 
 		this.makeRumusSparated();
 
-		// splitRumus.print(); //testCase
+		splitRumus.print(); //testCase
 	
 		while (!splitRumus.isEmpty())
 		{
@@ -135,9 +135,6 @@ class Kalkulator {
 								break;
 							}
 						}
-
-						//testCase
-						// System.out.println("Pop: " + pop + ", Prior Soal : " + opNow + ", Prior Peek : " + opPeek);
 
 						if (opNow > opPeek)
 						{
@@ -209,6 +206,9 @@ class Kalkulator {
 		}
 
 		// System.out.println("PostFix : " + postFix); //testCase
+		
+		// Replace Variable with value if contains Variable
+		this.replaceVariable();
 
 	}
 
@@ -224,31 +224,37 @@ class Kalkulator {
 
 	public void makeRumusSparated()
 	{
-		Scanner io = new Scanner(System.in);
 		Element helper = rumus.deQueue();
-		String isi, varIn;
-		boolean beforeIsOp, afterIsOp;
-		int varIndex = 10000;
+		String isi;
+		
 		for (int i = 0;i < helper.getInfo().getIsi().length();i++)
 		{
 			isi = String.valueOf(helper.getInfo().getIsi().charAt(i));
-			beforeIsOp = false;
-			afterIsOp = false;
 
-			// Replace with number from input if found Variables
-			for (int j = 0;j < variables.length;j++)
+			this.addOperatorIfBeforeVarIsNumber(helper, isi, i);
+
+			splitRumus.enQueue(new Element(new Info(isi)));
+
+			this.addOperatorIfAfterVarIsNumber(helper, isi, i);
+		}
+	}
+
+	public void addOperatorIfBeforeVarIsNumber(Element helper, String isi, int index)
+	{
+		String before = "";
+		boolean beforeIsOp = false;
+		for (int j = 0;j < variables.length;j++)
+		{
+			if (isi.toLowerCase().equals(variables[j]))
 			{
-				if (isi.toLowerCase().equals(variables[j]))
+				if (index > 0)
 				{
-					System.out.print("Masukkan Value " + variables[j] + " : ");
-					varIn = io.next();
-					isi = varIn;
-
 					// Check if before variable is not operator
 					// then add * before the variable
+					before = String.valueOf(helper.getInfo().getIsi().charAt((index-1)));
 					for (int k = 0;k < operator.length;k++)
 					{
-						if (splitRumus.getHead().getInfo().getIsi().equals(operator[k]))
+						if (before.equals(operator[k]))
 						{
 							beforeIsOp = true;
 							break;
@@ -260,34 +266,66 @@ class Kalkulator {
 						splitRumus.enQueue(new Element(new Info("*")));
 					}
 
-					varIndex = i;
 					break;
 				}
 			}
+		}
+	}
 
-			splitRumus.enQueue(new Element(new Info(isi)));
-
-			if (i == varIndex)
+	public void addOperatorIfAfterVarIsNumber(Element helper, String isi, int index)
+	{
+		String after;
+		boolean afterIsOp = false;
+		for (int j = 0;j < variables.length;j++)
+		{
+			if (isi.toLowerCase().equals(variables[j]))
 			{
-				// Check if after variable is not operator
-				// then add * after the variable
-				for (int k = 0;k < operator.length;k++)
+				if (index <= helper.getInfo().getIsi().length()-2)
 				{
-					if (splitRumus.getHead().getInfo().getIsi().equals(operator[k]))
+					// Check if after variable is not operator
+					// then add * after the variable
+					after = String.valueOf(helper.getInfo().getIsi().charAt((index+1)));
+					for (int k = 0;k < operator.length;k++)
 					{
-						afterIsOp = true;
-						break;
+						if (after.equals(operator[k]))
+						{
+							afterIsOp = true;
+							break;
+						}
 					}
-				}
 
-				if (!afterIsOp)
-				{
-					splitRumus.enQueue(new Element(new Info("*")));
-				}
+					if (!afterIsOp)
+					{
+						splitRumus.enQueue(new Element(new Info("*")));
+					}
 
-				varIndex = 10000;
+					break;
+				}
 			}
 		}
+	}
+
+	public void replaceVariable()
+	{
+		Scanner io = new Scanner(System.in);
+		for (int i = 0;i < postFix.length();i++)
+		{
+			String karakter = String.valueOf(postFix.charAt(i));
+			for (int j = 0;j < variables.length;j++)
+			{
+				if (karakter.toLowerCase().equals(variables[j]))
+				{
+					String varIn;
+					System.out.print("Masukkan Value " + variables[j] + " : ");
+					varIn = io.next();
+
+					postFix = postFix.replaceAll(karakter, varIn);
+					break;
+				}
+			}
+		}
+
+		// System.out.println(postFix);
 	}
 
 	public void printRumus()

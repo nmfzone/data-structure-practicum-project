@@ -20,6 +20,11 @@ class Queue {
 		return head;
 	}
 
+	public Element getLast()
+	{
+		return list.getLastElement();
+	}
+
 	public void enQueue(Element data)
 	{
 		list.insertLast(data);

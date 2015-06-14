@@ -49,6 +49,26 @@ public class LinkedList {
 		return helper;
 	}
 
+	public Element getLastElement()
+	{
+		Element lastElement = null;
+		if (isEmpty())
+		{
+			lastElement = first;	
+		}
+		else
+		{
+			Element helper = first;
+			while (helper.getNext() != null)
+			{
+				helper = helper.getNext();
+			}
+			lastElement = helper;
+		}
+
+		return lastElement;
+	}
+
 	public boolean isEmpty()
 	{
 		return first == null;
