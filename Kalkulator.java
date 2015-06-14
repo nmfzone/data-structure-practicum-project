@@ -106,7 +106,7 @@ class Kalkulator {
 
 		this.makeRumusSparated();
 
-		splitRumus.print(); //testCase
+		// splitRumus.print(); //testCase
 	
 		while (!splitRumus.isEmpty())
 		{
