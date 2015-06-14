@@ -252,7 +252,7 @@ class Kalkulator {
 					}
 
 					// Check if after variable is not operator
-					for (k = 0;k < operator.length;k++)
+					for (int k = 0;k < operator.length;k++)
 					{
 						if (variables[(j+1)].equals(operator[k]))
 						{
