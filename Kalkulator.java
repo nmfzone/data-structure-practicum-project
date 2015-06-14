@@ -229,6 +229,8 @@ class Kalkulator {
 		for (int i = 0;i < helper.getInfo().getIsi().length();i++)
 		{
 			isi = String.valueOf(helper.getInfo().getIsi().charAt(i));
+			beforeIsOp = false;
+			afterIsOp = false;
 
 			// Replace with number from input if found Variables
 			for (int j = 0;j < variables.length;j++)
@@ -237,8 +239,6 @@ class Kalkulator {
 				{
 					System.out.print("Masukkan Value " + variables[j] + " : ");
 					varIn = io.next();
-					beforeIsOp = false;
-					afterIsOp = false;
 					isi = varIn;
 
 					// Check if before variable is not operator
