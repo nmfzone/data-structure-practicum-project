@@ -257,7 +257,7 @@ class Kalkulator {
 
 			splitRumus.enQueue(new Element(new Info(isi)));
 
-			if (i == varIndex+1)
+			if (i == varIndex)
 			{
 				// Check if after variable is not operator
 				// then add * after the variable
