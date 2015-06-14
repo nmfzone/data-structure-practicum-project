@@ -252,7 +252,7 @@ class Kalkulator {
 					}
 
 					// Check if after variable is not operator
-					for (int k = 0;k < operator.length;k++)
+					for (k = 0;k < operator.length;k++)
 					{
 						if (variables[(j+1)].equals(operator[k]))
 						{
@@ -269,6 +269,7 @@ class Kalkulator {
 					break;
 				}
 			}
+
 			splitRumus.enQueue(new Element(new Info(isi)));
 
 			// If after variable is not operator add * after the variable
