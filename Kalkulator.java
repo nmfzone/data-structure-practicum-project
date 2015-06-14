@@ -31,6 +31,8 @@ class Kalkulator {
 
 		this.makePostFix();
 
+		System.out.println(postFix); //testCase
+
 		String[] parts = postFix.split(",");
 
 		for (int i = 0; i < parts.length;i++)
@@ -225,10 +227,13 @@ class Kalkulator {
 		Scanner io = new Scanner(System.in);
 		Element helper = rumus.deQueue();
 		String isi, varIn;
+		boolean beforeIsOp, afterIsOp;
 		int varIndex = 10000;
 		for (int i = 0;i < helper.getInfo().getIsi().length();i++)
 		{
 			isi = String.valueOf(helper.getInfo().getIsi().charAt(i));
+			beforeIsOp = false;
+			afterIsOp = false;
 
 			// Replace with number from input if found Variables
 			for (int j = 0;j < variables.length;j++)
@@ -243,11 +248,16 @@ class Kalkulator {
 					// then add * before the variable
 					for (int k = 0;k < operator.length;k++)
 					{
-						if (!splitRumus.getHead().getInfo().getIsi().equals(operator[k]))
+						if (splitRumus.getHead().getInfo().getIsi().equals(operator[k]))
 						{
-							splitRumus.enQueue(new Element(new Info("*")));
+							beforeIsOp = true;
 							break;
 						}
+					}
+
+					if (!beforeIsOp)
+					{
+						splitRumus.enQueue(new Element(new Info("*")));
 					}
 
 					varIndex = i;
@@ -263,12 +273,18 @@ class Kalkulator {
 				// then add * after the variable
 				for (int k = 0;k < operator.length;k++)
 				{
-					if (!splitRumus.getHead().getInfo().getIsi().equals(operator[k]))
+					if (splitRumus.getHead().getInfo().getIsi().equals(operator[k]))
 					{
-						splitRumus.enQueue(new Element(new Info("*")));
+						afterIsOp = true;
 						break;
 					}
 				}
+
+				if (!afterIsOp)
+				{
+					splitRumus.enQueue(new Element(new Info("*")));
+				}
+
 				varIndex = 10000;
 			}
 		}
