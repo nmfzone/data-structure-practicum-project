@@ -65,8 +65,16 @@ to calculate the formula.
 
 # About Release
 ```
+	v1.0
+
+	Bugs:
+		* I think no one. Please pull request if you found a bugs.
+```
+
+```
 	v0.1 - BETA
 	
-	Bugs: 
-		- Must Input the same value for same variables (will be fixed for next releases)
+	Bugs:
+		* Can only calculate for single number (1-9), in that sense number can only
+		  with one digit. (will be fixed for next releases)
 ```
