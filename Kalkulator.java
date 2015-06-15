@@ -187,25 +187,19 @@ class Kalkulator {
 			rumusPostFix.push(tempOperator.pop());
 		}
 
-		String reversePostFix = "";
+		Stack reversePostFix = new Stack();
 
 		while (!rumusPostFix.isEmpty())
 		{
-			reversePostFix += rumusPostFix.pop().getInfo().getIsi();
+			reversePostFix.push(new Element(new Info(rumusPostFix.pop().getInfo().getIsi())));
 		}
 
-		// System.out.println(reversePostFix); //testCase
-
-		int length = reversePostFix.length();
-
-		// Reverse the reversePostFix String
+		// Reverse the reversePostFix Stack to String
 		// ex. "cba" to "abc" and add separate with comma (,)
-		for (int i = length - 1; i >= 0; i--)
+		while (!reversePostFix.isEmpty())
 		{
-			postFix += reversePostFix.charAt(i) + ",";
+			postFix += reversePostFix.pop().getInfo().getIsi() + ",";
 		}
-
-		// System.out.println("PostFix : " + postFix); //testCase
 		
 		// Replace Variable with value if contains Variable
 		this.replaceVariable();
@@ -225,17 +219,64 @@ class Kalkulator {
 	public void makeRumusSparated()
 	{
 		Element helper = rumus.deQueue();
-		String isi;
+		String isi, value = "";
+		boolean isOperator, isVar;
 		
-		for (int i = 0;i < helper.getInfo().getIsi().length();i++)
+		for (int i = 0;i <= helper.getInfo().getIsi().length();i++)
 		{
-			isi = String.valueOf(helper.getInfo().getIsi().charAt(i));
+			if (i != helper.getInfo().getIsi().length())
+			{
+				isi = String.valueOf(helper.getInfo().getIsi().charAt(i));
+				isOperator = isVar = false;
 
-			this.addOperatorIfBeforeVarIsNumber(helper, isi, i);
+				for (int j = 0;j < operator.length;j++)
+				{
+					if (isi.toLowerCase().equals(operator[j]))
+					{
+						isOperator = true;
+						break;
+					}
+				}
 
-			splitRumus.enQueue(new Element(new Info(isi)));
+				for (int j = 0;j < variables.length;j++)
+				{
+					if (isi.toLowerCase().equals(variables[j]))
+					{
+						isVar = true;
+						break;
+					}
+				}
 
-			this.addOperatorIfAfterVarIsNumber(helper, isi, i);
+				if (!isOperator && !isVar)
+				{
+					value += isi;
+				}
+				else if (isOperator || isVar)
+				{
+					if (!value.equals(""))
+					{
+						splitRumus.enQueue(new Element(new Info(value)));
+					}
+
+					if (isVar)
+					{
+						this.addOperatorIfBeforeVarIsNumber(helper, isi, i);
+					}
+
+					splitRumus.enQueue(new Element(new Info(isi)));
+
+					if (isVar)
+					{
+						this.addOperatorIfAfterVarIsNumber(helper, isi, i);
+					}
+
+					value = "";
+				}
+			}
+			else
+			{
+				splitRumus.enQueue(new Element(new Info(value)));
+			}
 		}
 	}
 
@@ -324,8 +365,6 @@ class Kalkulator {
 				}
 			}
 		}
-
-		// System.out.println(postFix);
 	}
 
 	public void printRumus()
