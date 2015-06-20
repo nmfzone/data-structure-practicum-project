@@ -21,7 +21,7 @@ to calculate the formula.
 			private String[] variables = {"a", "b", "x", "y"};
 
 	3. 	Can calculate the formula that have operator ^(pow), %(modulo), *(multiply),
-		/(div), +(plus) and -(minus). You can easily add or remove the variables that
+		/(div), +(plus) and -(minus). You can easily add or remove the operators that
 		can be used by edit this line in Kalkulator.java :
 
 			private String[] operator = {"^", "%", "*", "/", "+", "-"};
@@ -30,7 +30,7 @@ to calculate the formula.
 
 			private int[] priority = {5, 4, 3, 2, 1, 0};
 
-		and the you must also add the operation in this section :
+		and then you must also add the operation in this section :
 		(please beware about this)
 
 			switch (test)
