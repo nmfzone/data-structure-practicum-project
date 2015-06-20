@@ -106,7 +106,7 @@ class Kalkulator {
 
 		this.makeRumusSparated();
 
-		// splitRumus.print(); //testCase
+		splitRumus.print(); //testCase
 	
 		while (!splitRumus.isEmpty())
 		{
@@ -275,7 +275,10 @@ class Kalkulator {
 			}
 			else
 			{
-				splitRumus.enQueue(new Element(new Info(value)));
+				if (!value.equals(""))
+				{
+					splitRumus.enQueue(new Element(new Info(value)));
+				}
 			}
 		}
 	}
