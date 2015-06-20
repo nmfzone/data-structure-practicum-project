@@ -34,41 +34,48 @@ to calculate the formula.
 		(please beware about this)
 
 			switch (test)
-				{
-					case "^":
-						calc = Math.pow(val2, val1);
-						hitung.push(new Element(new Info(String.valueOf(calc))));
-						break;
-					case "%":
-						calc = val2 % val1;
-						hitung.push(new Element(new Info(String.valueOf(calc))));
-						break;
-					case "*":
-						calc = val2 * val1;
-						hitung.push(new Element(new Info(String.valueOf(calc))));
-						break;
-					case "/":
-						calc = val2 / val1;
-						hitung.push(new Element(new Info(String.valueOf(calc))));
-						break;
-					case "+":
-						calc = val2 + val1;
-						hitung.push(new Element(new Info(String.valueOf(calc))));
-						break;
-					case "-":
-						calc = val2 - val1;
-						hitung.push(new Element(new Info(String.valueOf(calc))));
-						break;
-				}
+			{
+				case "^":
+					calc = Math.pow(val2, val1);
+					hitung.push(new Element(new Info(String.valueOf(calc))));
+					break;
+				case "%":
+					calc = val2 % val1;
+					hitung.push(new Element(new Info(String.valueOf(calc))));
+					break;
+				case "*":
+					calc = val2 * val1;
+					hitung.push(new Element(new Info(String.valueOf(calc))));
+					break;
+				case "/":
+					calc = val2 / val1;
+					hitung.push(new Element(new Info(String.valueOf(calc))));
+					break;
+				case "+":
+					calc = val2 + val1;
+					hitung.push(new Element(new Info(String.valueOf(calc))));
+					break;
+				case "-":
+					calc = val2 - val1;
+					hitung.push(new Element(new Info(String.valueOf(calc))));
+					break;
+			}
 
 ```
 
 # About Release
 ```
-	v1.0
+	v1.1
 
 	Bugs:
 		* I think no one. Please pull request if you found a bugs.
+```
+
+```
+	v1.0
+
+	Bugs:
+		* Errors when the end of list found empty string.
 ```
 
 ```
