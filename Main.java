@@ -61,7 +61,7 @@ public class Main {
 
 		int pil = 0;
 		String rumus;
-		int indexRumus = 1;
+		int indexRumus = 1, noRumus = 1;
 		boolean goodInput;
 
 		do
@@ -104,7 +104,6 @@ public class Main {
 					case 4 :
 						if (!calc.getRumus().isEmpty())
 						{
-							int noRumus = 1;
 							while (!calc.getRumus().isEmpty())
 							{
 								double hasil = calc.calculate();
