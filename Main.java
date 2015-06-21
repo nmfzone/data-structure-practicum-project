@@ -46,9 +46,10 @@ public class Main {
 	{
 		System.out.print("======= Menu Kalkulator =======\n"
 						+  "\t1. Tambahkan Rumus\n"
-						+  "\t2. Hapus Rumus\n"
-						+  "\t3. Hitung Rumus\n"
-						+  "\t4. Keluar\n"
+						+  "\t2. Lihat Rumus\n"
+						+  "\t3. Hapus Rumus\n"
+						+  "\t4. Hitung Rumus\n"
+						+  "\t5. Keluar\n"
 						+  "\nMasukkan Pilihan : ");
 	}
 
@@ -58,43 +59,75 @@ public class Main {
 		Main m = new Main();
 		Kalkulator calc = new Kalkulator();
 
-		int pil;
+		int pil = 0;
 		String rumus;
+		int indexRumus = 1;
+		boolean goodInput;
 
 		do
 		{
+			goodInput = false;
 			m.menu();
-			pil = io.nextInt();
-			System.out.println();
-			switch(pil)
-			{
-				case 1 : 
-					System.out.print("Masukkan Rumus : ");
-					rumus = io.next();
-					calc.addRumus(rumus);
-					break;
-				case 2 :
-					calc.printRumus();
-					break;
-				case 3 :
-					if (!calc.getRumus().isEmpty())
-					{
-						System.out.println("Hasil Perhitungan : " + calc.calculate());
-					}
-					else
-					{
-						System.out.println("Rumus masih Kosong!\n"
-										 + "Silahkan isi Rumus terlebih dahulu!");
-					}
-					break;
-				case 4 :
-					m.exitMessages();
-					System.exit(0);
-					break;
-				default:
-					System.out.println("Menu Tidak Tersedia, Silahkan Ulangi!\n");
-					break;
-			}
+			try {
+				pil = io.nextInt();
+				System.out.println();
+				goodInput = true;
+			} catch(Exception e) {
+	            System.out.println("Input harus Angka!");
+	            io.next();
+	        }
+
+	        if (goodInput)
+	        {
+	        	switch(pil)
+				{
+					case 1 :
+						System.out.print("Masukkan Rumus : ");
+						rumus = io.next();
+						calc.addRumus(rumus, indexRumus);
+						indexRumus++;
+						break;
+					case 2 :
+						calc.printRumus();
+						break;
+					case 3 :
+						calc.printRumus();
+						System.out.println();
+						if (!calc.getRumus().isEmpty())
+						{
+							int hapusIndex;
+							System.out.print("Masukkan Index Rumus yang akan dihapus : ");
+							hapusIndex = io.nextInt();
+							calc.removeRumus(hapusIndex);
+						}
+						break;
+					case 4 :
+						if (!calc.getRumus().isEmpty())
+						{
+							int noRumus = 1;
+							while (!calc.getRumus().isEmpty())
+							{
+								double hasil = calc.calculate();
+								System.out.println(noRumus + ". Hasil Perhitungan " + calc.getOriginalRumus() + " = " + hasil);
+								noRumus++;
+							}
+						}
+						else
+						{
+							System.out.println("Rumus masih Kosong!\n"
+											 + "Silahkan isi Rumus terlebih dahulu!");
+						}
+						break;
+					case 5 :
+						m.exitMessages();
+						System.exit(0);
+						break;
+					default:
+						System.out.println("Menu Tidak Tersedia, Silahkan Ulangi!\n");
+						break;
+				}
+	        }
+
 			System.out.println();
 		} while(true);
 	}

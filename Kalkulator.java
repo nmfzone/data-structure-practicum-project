@@ -8,6 +8,7 @@ class Kalkulator {
 	private String postFix = "";
 	private Stack rumusPostFix;
 	private Stack hitung;
+	private String originalRumus;
 	private Stack tempOperand;
 	private Stack tempOperator;
 	private String[] operator = {"^", "%", "*", "/", "+", "-"};
@@ -106,7 +107,7 @@ class Kalkulator {
 
 		this.makeRumusSparated();
 
-		splitRumus.print(); //testCase
+		// splitRumus.print(); //testCase
 	
 		while (!splitRumus.isEmpty())
 		{
@@ -206,9 +207,14 @@ class Kalkulator {
 
 	}
 
-	public void addRumus(String rumus)
+	public void addRumus(String rumus, int index)
 	{
-		this.rumus.enQueue(new Element(new Info(rumus)));
+		this.rumus.enQueue(new Element(new Info(rumus, index)));
+	}
+
+	public void removeRumus(int index)
+	{
+		rumus.removeAt(index);
 	}
 
 	public Queue getRumus()
@@ -216,9 +222,15 @@ class Kalkulator {
 		return rumus;
 	}
 
+	public String getOriginalRumus()
+	{
+		return originalRumus;
+	}
+
 	public void makeRumusSparated()
 	{
 		Element helper = rumus.deQueue();
+		originalRumus = helper.getInfo().getIsi();
 		String isi, value = "";
 		boolean isOperator, isVar;
 		

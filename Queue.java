@@ -35,6 +35,11 @@ class Queue {
 		return data;
 	}
 
+	public void removeAt(int index)
+	{
+		this.setHead(list.deleteAt(index));
+	}
+
 	public boolean isEmpty()
 	{
 		return head == null;
@@ -45,12 +50,10 @@ class Queue {
 		if (!isEmpty())
 		{
 			Element helper = head;
-			int i = 1;
 			while (helper != null)
 			{
-				System.out.println("   " + i + ". " + helper.getInfo().getIsi());
+				System.out.println("   " + helper.getInfo().getIndex() + ". " + helper.getInfo().getIsi());
 				helper = helper.getNext();
-				i++;
 			}
 		}
 		else

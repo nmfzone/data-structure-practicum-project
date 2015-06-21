@@ -49,6 +49,48 @@ public class LinkedList {
 		return helper;
 	}
 
+	public Element deleteAt(int index)
+	{
+		Element elSem = first;
+		boolean ketemu = false;
+
+        if (elSem.getNext() != null)
+        {
+            Element eseyd = null;
+
+            while (elSem.getNext() != null)
+            {
+                eseyd = elSem;
+                elSem = elSem.getNext();
+                if (elSem.getInfo().getIndex() == index)
+                {
+                    eseyd.setNext(elSem.getNext());
+                    ketemu = true;
+                }
+            }
+        }
+        else
+        {
+        	if (elSem.getInfo().getIndex() == index)
+        	{
+    			first = null;
+    			ketemu = true;
+    		}
+        }
+
+        if (!ketemu)
+        {
+        	System.out.println("\nRumus dengan Index '" + index + "' tidak ada dalam List.\n"
+        					 + "Gagal Mengapus!");
+        }
+        else
+        {
+        	System.out.println("\nRumus Berhasil Dihapus :)");
+        }
+
+        return first;
+    }
+
 	public boolean isEmpty()
 	{
 		return first == null;
